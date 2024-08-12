@@ -57,3 +57,10 @@ deps: staticcheck ## Install all of hte needed dependencies
 .PHONY: staticcheck
 staticcheck: ## Install staticcheck
 	@go install honnef.co/go/tools/cmd/staticcheck@latest
+
+
+##@ Helm
+
+.PHONY: package
+package: ## Package the helm chart
+	@helm package charts/dex-http-server

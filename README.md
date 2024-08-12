@@ -70,3 +70,7 @@ buf generate
 ```bash
 go run cmd/dex-http-server/main.go
 ```
+
+## Packaging
+
+dex-http-server is packaged through helm. To generate a package, run `make package`.
