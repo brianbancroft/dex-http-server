@@ -14,7 +14,9 @@ import (
 var (
 	// command-line options:
 	// gRPC server endpoint
-	grpcServerEndpoint = flag.String("grpc-server-endpoint", "localhost:9090", "gRPC server endpoint")
+	grpcServer = flag.String("grpc-server", "localhost:9090", "gRPC server endpoint")
+	// HTTP server port
+	port = flag.String("http-port", "8081", "HTTP server port")
 )
 
 func run() error {
@@ -26,19 +28,19 @@ func run() error {
 	// Note: Make sure the gRPC server is running properly and accessible
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-	err := gw.RegisterYourServiceHandlerFromEndpoint(ctx, mux, *grpcServerEndpoint, opts)
+	err := gw.RegisterYourServiceHandlerFromEndpoint(ctx, mux, grpcServerEndpoint, opts)
 	if err != nil {
 		return err
 	}
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
-	return http.ListenAndServe(":8081", mux)
+	return http.ListenAndServe(":"+port, mux)
 }
 
 func main() {
 	flag.Parse()
 
-	if err := run(); err != nil {
+	if err := run(*grpcServer, *port); err != nil {
 		grpclog.Fatal(err)
 	}
 }
