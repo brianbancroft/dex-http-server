@@ -16,7 +16,7 @@ var (
 	// gRPC server endpoint
 	grpcServer = flag.String("grpc-server", "localhost:9090", "gRPC server endpoint")
 	// HTTP server port
-	port = flag.String("http-port", "8081", "HTTP server port")
+	port = flag.String("http-port", "8080", "HTTP server port")
 )
 
 func run() error {
