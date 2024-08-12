@@ -30,8 +30,3 @@
 *.so
 *.dll
 *.dylib
-
-# Go Vendor
-vendor/
-go.mod
-go.sum
